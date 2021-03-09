@@ -43,10 +43,11 @@ public class UserServiceImpl implements UserService {
             cardEntity.setCardExpireMonth(localDate);
             cardEntity.setCardExpireYear(localDate);
             cardEntity.setCardHolderName(userEntity.getUserName());
+            userEntity.setCardEntity(cardEntity);
 
             try {
-                userRepository.save(userEntity);
                 cardRepository.save(cardEntity);
+                userRepository.save(userEntity);
                 return userEntity.getUserDBId();
             } catch (Exception e) {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ErrorMessages.CONTACT_ADMIN);

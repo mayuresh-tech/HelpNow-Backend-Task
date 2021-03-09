@@ -19,7 +19,7 @@ public class UserController {
 
     @ApiOperation(value = "Sign up new User")
     @GetMapping(path = "/signUpUser", produces = {MediaType.APPLICATION_JSON_VALUE})
-    public Object createNewUser(@RequestHeader("X-AUTH-TOKEN") @RequestParam(required = false) String token, @RequestParam String userName, @RequestParam String userEmail, @RequestParam String userPassword) {
+    public Object createNewUser(@RequestParam String userName, @RequestParam String userEmail, @RequestParam String userPassword) {
         UserDTO userDTO = new UserDTO(null, userName, userEmail);
 
         String res = userService.createUser(userDTO, userPassword);
@@ -32,7 +32,7 @@ public class UserController {
 
     @ApiOperation(value = "Sign in existing User")
     @GetMapping(path = "/signInUser", produces = {MediaType.APPLICATION_JSON_VALUE})
-    public Object createNewUser(@RequestHeader("X-AUTH-TOKEN") @RequestParam(required = false) String token, @RequestParam String userEmail, @RequestParam String userPassword) {
+    public Object createNewUser(@RequestParam String userEmail, @RequestParam String userPassword) {
 
         UserDTO userDTO = userService.signInUser(userEmail, userPassword);
         if (userDTO == null) {

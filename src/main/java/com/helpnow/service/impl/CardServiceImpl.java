@@ -9,9 +9,14 @@ import com.helpnow.service.CardService;
 import com.helpnow.service.UserService;
 import com.helpnow.util.EncryptUtils;
 import com.helpnow.util.EntityDTOConverter;
+import com.helpnow.util.ErrorMessages;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
+import javax.transaction.Transactional;
 
 @Service
 @Slf4j
@@ -37,6 +42,7 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
+    @Transactional
     public CardDTO updateBalance(String paymentGatewayAuth, String userEmail, String userPassword, Long addMoney) {
         UserEntity userEntity = userRepository.findByUserEmailAndUserPassword(userEmail, EncryptUtils.encrypt(userPassword));
         if (userEntity != null) {
@@ -47,8 +53,16 @@ public class CardServiceImpl implements CardService {
              **/
             if (true) {
                 cardEntity.setCardBalance((cardEntity.getCardBalance() + addMoney));
+                try {
+                    cardRepository.save(cardEntity);
+                } catch (Exception e) {
+                    throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ErrorMessages.CONTACT_ADMIN);
+                }
+                return EntityDTOConverter.getCardDTOFromEntity(userEntity.getCardEntity());
             }
-            return EntityDTOConverter.getCardDTOFromEntity(userEntity.getCardEntity());
+            else {
+                return null;
+            }
         } else {
             return null;
         }

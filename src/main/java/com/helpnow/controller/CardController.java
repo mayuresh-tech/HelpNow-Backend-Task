@@ -19,7 +19,7 @@ public class CardController {
 
     @ApiOperation(value = "Get Card details")
     @GetMapping(path = "/getCardDetails", produces = {MediaType.APPLICATION_JSON_VALUE})
-    public Object getCard(@RequestHeader("X-AUTH-TOKEN") @RequestParam(required = false) String token, @RequestParam String userEmail, @RequestParam String userPassword) {
+    public Object getCard(@RequestParam String userEmail, @RequestParam String userPassword) {
         CardDTO cardDTO = cardService.getCardDetails(userEmail, userPassword);
         if (cardDTO == null) {
             return new ResponseDTO(404, HttpStatus.NOT_FOUND, ErrorMessages.INCORRECT_CREDENTIALS);
@@ -30,7 +30,7 @@ public class CardController {
 
     @ApiOperation(value = "Update Card Balance")
     @GetMapping(path = "/updateBalance", produces = {MediaType.APPLICATION_JSON_VALUE})
-    public Object updateCardBalance(@RequestHeader("X-AUTH-TOKEN") @RequestParam(required = false) String token, @RequestParam String userEmail, @RequestParam String userPassword, @RequestParam Long moneyToAdd) {
+    public Object updateCardBalance(@RequestParam String userEmail, @RequestParam String userPassword, @RequestParam Long moneyToAdd) {
         CardDTO cardDTO = cardService.updateBalance("test", userEmail, userPassword, moneyToAdd);
         if (cardDTO == null) {
             return new ResponseDTO(404, HttpStatus.NOT_FOUND, ErrorMessages.INCORRECT_CREDENTIALS);

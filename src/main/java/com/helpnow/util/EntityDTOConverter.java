@@ -43,7 +43,9 @@ public class EntityDTOConverter {
     }
 
     public static CardDTO getCardDTOFromEntity(CardEntity cardEntity) {
-        CardDTO cardDTO = getCardDTOMapper().map(cardEntity, CardDTO.class);
+        CardDTO cardDTO = new CardDTO();
+        cardDTO.setCardHolderName(cardEntity.getCardHolderName());
+        cardDTO.setCardBalance(cardEntity.getCardBalance());
         cardDTO.setCardExpireDay(cardEntity.getCardExpireDay().getDayOfMonth());
         cardDTO.setCardExpireMonth(cardEntity.getCardExpireMonth().getMonthValue());
         cardDTO.setCardExpireYear(cardEntity.getCardExpireYear().getYear());
