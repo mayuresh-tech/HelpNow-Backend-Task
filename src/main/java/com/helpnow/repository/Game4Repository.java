@@ -5,8 +5,10 @@ import com.helpnow.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.UUID;
+
 @Repository
-public interface Game4Repository extends JpaRepository<Game4Details, String> {
+public interface Game4Repository extends JpaRepository<Game4Details, UUID> {
 
     Game4Details findByUserEntity(UserEntity userEntity);
 }

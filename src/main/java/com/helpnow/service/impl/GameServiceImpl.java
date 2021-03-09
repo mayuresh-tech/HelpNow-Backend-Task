@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @Slf4j
@@ -87,19 +88,74 @@ public class GameServiceImpl implements GameService {
 
             if (gameCount == 10 && gamesList.get(0) == 0 && gamesList.get(9) == 0) {
                 int result = checkValid(gamesList, gameCount, true);
+                if (result == 1) {
+                    Game10Details game10Details = new Game10Details();
+                    if (LocalDate.now().getDayOfWeek().getValue() == 6 || LocalDate.now().getDayOfWeek().getValue() == 7) {
+                        userEntity.getCardEntity().setCardBalance((userEntity.getCardEntity().getCardBalance() - 20));
+                    } else {
+                        userEntity.getCardEntity().setCardBalance((userEntity.getCardEntity().getCardBalance() - 10));
+                    }
+                    userRepository.save(userEntity);
+                    game10Details.setUserEntity(userEntity);
+                    game10Repository.save(game10Details);
+                }
             } else if (gameCount == 10 && gamesList.get(0) == 1 && gamesList.get(9) == 1) {
                 int result = checkValid(gamesList, gameCount, false);
+                if (result == 1) {
+                    Game10Details game10Details = new Game10Details();
+                    if (LocalDate.now().getDayOfWeek().getValue() == 6 || LocalDate.now().getDayOfWeek().getValue() == 7) {
+                        userEntity.getCardEntity().setCardBalance((userEntity.getCardEntity().getCardBalance() - 20));
+                    } else {
+                        userEntity.getCardEntity().setCardBalance((userEntity.getCardEntity().getCardBalance() - 10));
+                    }
+                    userRepository.save(userEntity);
+                    game10Details.setUserEntity(userEntity);
+                    game10Repository.save(game10Details);
+                }
             }
 
             if (gameCount == 1 && gamesList.get(9) == 0 && gamesList.get(1) == 0) {
                 int result = checkValid(gamesList, gameCount, false);
+                if (result == 1) {
+                    Game1Details game1Details = new Game1Details();
+                    if (LocalDate.now().getDayOfWeek().getValue() == 6 || LocalDate.now().getDayOfWeek().getValue() == 7) {
+                        userEntity.getCardEntity().setCardBalance((userEntity.getCardEntity().getCardBalance() - 20));
+                    } else {
+                        userEntity.getCardEntity().setCardBalance((userEntity.getCardEntity().getCardBalance() - 10));
+                    }
+                    userRepository.save(userEntity);
+                    game1Details.setUserEntity(userEntity);
+                    game1Repository.save(game1Details);
+                }
+
             } else if (gameCount == 1 && gamesList.get(9) == 1 && gamesList.get(1) == 1) {
                 int result = checkValid(gamesList, gameCount, true);
+                if (result == 1) {
+                    Game1Details game1Details = new Game1Details();
+                    if (LocalDate.now().getDayOfWeek().getValue() == 6 || LocalDate.now().getDayOfWeek().getValue() == 7) {
+                        userEntity.getCardEntity().setCardBalance((userEntity.getCardEntity().getCardBalance() - 20));
+                    } else {
+                        userEntity.getCardEntity().setCardBalance((userEntity.getCardEntity().getCardBalance() - 10));
+                    }
+                    userRepository.save(userEntity);
+                    game1Details.setUserEntity(userEntity);
+                    game1Repository.save(game1Details);
+                }
             }
 
             if (gameCount != 10 && gameCount != 1) {
                 if (gamesList.get(0) == 1) {
                     int result = checkValid(gamesList, gameCount, false);
+                    if (result == 1) {
+                        Object obj = gamesList.get(gameCount - 1);
+                        if (LocalDate.now().getDayOfWeek().getValue() == 6 || LocalDate.now().getDayOfWeek().getValue() == 7) {
+                            userEntity.getCardEntity().setCardBalance((userEntity.getCardEntity().getCardBalance() - 20));
+                        }
+                        else {
+                            userEntity.getCardEntity().setCardBalance((userEntity.getCardEntity().getCardBalance() - 10));
+                        }
+                        userRepository.save(userEntity);
+                    }
                 } else if (gamesList.get(9) == 1) {
                     int result = checkValid(gamesList, gameCount, true);
                 }

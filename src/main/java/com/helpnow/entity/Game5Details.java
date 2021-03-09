@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -12,11 +13,9 @@ import javax.persistence.*;
 public class Game5Details {
 
     @Id
+    @GeneratedValue
     @Column(name = "game5_db_id")
-    private String game5DBId;
-
-    @Column(name = "game5_name")
-    private String game5Name;
+    private UUID game5DBId;
 
     @ManyToOne
     @JoinColumn(name = "user_played", nullable = false)
