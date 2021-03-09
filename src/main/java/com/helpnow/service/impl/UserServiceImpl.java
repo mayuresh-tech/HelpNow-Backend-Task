@@ -37,6 +37,7 @@ public class UserServiceImpl implements UserService {
             userEntity.setUserPassword(EncryptUtils.encrypt(password));
             CardEntity cardEntity = new CardEntity();
             cardEntity.setCardDBId(UUID.randomUUID().toString());
+            cardEntity.setCardBalance(30L);
             LocalDate localDate = LocalDate.now().plusYears(3);
             cardEntity.setCardExpireDay(localDate);
             cardEntity.setCardExpireMonth(localDate);
