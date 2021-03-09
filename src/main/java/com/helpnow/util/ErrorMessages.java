@@ -8,4 +8,6 @@ public class ErrorMessages {
     public static final String INCORRECT_CREDENTIALS = "Incorrect EmailId or Password";
 
     public static final String CONTACT_ADMIN = "Contact Admin";
+
+    public static final String DUPLICATE_EMAIL = "Account with that Email already exists";
 }
