@@ -1,6 +1,5 @@
 package com.helpnow.service.impl;
 
-import com.helpnow.dto.ResponseDTO;
 import com.helpnow.entity.*;
 import com.helpnow.repository.*;
 import com.helpnow.service.GameService;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @Slf4j
@@ -56,30 +54,7 @@ public class GameServiceImpl implements GameService {
 
 
     @Override
-    public ResponseDTO swipeInForGame(String userId, int gameCount, LocalDate localDateNow, boolean rev) {
-        List<Object> objectList = new ArrayList<>();
-        Game1Details g1 = new Game1Details();
-        Game2Details g2 = new Game2Details();
-        Game3Details g3 = new Game3Details();
-        Game4Details g4 = new Game4Details();
-        Game5Details g5 = new Game5Details();
-        Game6Details g6 = new Game6Details();
-        Game7Details g7 = new Game7Details();
-        Game8Details g8 = new Game8Details();
-        Game9Details g9 = new Game9Details();
-        Game10Details g10 = new Game10Details();
-
-        objectList.add(g1);
-        objectList.add(g2);
-        objectList.add(g3);
-        objectList.add(g4);
-        objectList.add(g5);
-        objectList.add(g6);
-        objectList.add(g7);
-        objectList.add(g8);
-        objectList.add(g9);
-        objectList.add(g10);
-
+    public int swipeInForGame(String userId, int gameCount, LocalDate localDateNow, boolean rev) {
 
         UserEntity userEntity = userRepository.findByUserDBId(userId);
 
@@ -147,22 +122,71 @@ public class GameServiceImpl implements GameService {
                 if (gamesList.get(0) == 1) {
                     int result = checkValid(gamesList, gameCount, false);
                     if (result == 1) {
-                        Object obj = gamesList.get(gameCount - 1);
                         if (LocalDate.now().getDayOfWeek().getValue() == 6 || LocalDate.now().getDayOfWeek().getValue() == 7) {
                             userEntity.getCardEntity().setCardBalance((userEntity.getCardEntity().getCardBalance() - 20));
-                        }
-                        else {
+                        } else {
                             userEntity.getCardEntity().setCardBalance((userEntity.getCardEntity().getCardBalance() - 10));
                         }
                         userRepository.save(userEntity);
+                        switch (gameCount) {
+                            case 2:
+                                Game2Details game2Details = new Game2Details();
+                                game2Details.setUserEntity(userEntity);
+                                game2Repository.save(game2Details);
+                                break;
+
+                            case 3:
+                                Game3Details game3Details = new Game3Details();
+                                game3Details.setUserEntity(userEntity);
+                                game3Repository.save(game3Details);
+                                break;
+
+                            case 4:
+                                Game4Details game4Details = new Game4Details();
+                                game4Details.setUserEntity(userEntity);
+                                game4Repository.save(game4Details);
+                                break;
+
+                            case 5:
+                                Game5Details game5Details = new Game5Details();
+                                game5Details.setUserEntity(userEntity);
+                                game5Repository.save(game5Details);
+                                break;
+
+                            case 6:
+                                Game6Details game6Details = new Game6Details();
+                                game6Details.setUserEntity(userEntity);
+                                game6Repository.save(game6Details);
+                                break;
+
+                            case 7:
+                                Game7Details game7Details = new Game7Details();
+                                game7Details.setUserEntity(userEntity);
+                                game7Repository.save(game7Details);
+                                break;
+
+                            case 8:
+                                Game8Details game8Details = new Game8Details();
+                                game8Details.setUserEntity(userEntity);
+                                game8Repository.save(game8Details);
+                                break;
+
+                            case 9:
+                                Game9Details game9Details = new Game9Details();
+                                game9Details.setUserEntity(userEntity);
+                                game9Repository.save(game9Details);
+                                break;
+
+                            default:
+                                return 0;
+                        }
                     }
                 } else if (gamesList.get(9) == 1) {
                     int result = checkValid(gamesList, gameCount, true);
                 }
             }
         }
-
-        return null;
+        return 0;
     }
 
     public List<Integer> gamesPlayedList(UserEntity userEntity) {
