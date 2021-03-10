@@ -54,7 +54,7 @@ public class GameServiceImpl implements GameService {
 
 
     @Override
-    public int swipeInForGame(String userId, int gameCount, LocalDate localDateNow, boolean rev) {
+    public int swipeInForGame(String userId, int gameCount, LocalDate localDateNow) {
 
         UserEntity userEntity = userRepository.findByUserDBId(userId);
 
@@ -73,6 +73,7 @@ public class GameServiceImpl implements GameService {
                     userRepository.save(userEntity);
                     game10Details.setUserEntity(userEntity);
                     game10Repository.save(game10Details);
+                    return 1;
                 }
             } else if (gameCount == 10 && gamesList.get(0) == 1 && gamesList.get(9) == 1) {
                 int result = checkValid(gamesList, gameCount, false);
@@ -86,6 +87,7 @@ public class GameServiceImpl implements GameService {
                     userRepository.save(userEntity);
                     game10Details.setUserEntity(userEntity);
                     game10Repository.save(game10Details);
+                    return 1;
                 }
             }
 
@@ -94,13 +96,24 @@ public class GameServiceImpl implements GameService {
                 if (result == 1) {
                     Game1Details game1Details = new Game1Details();
                     if (LocalDate.now().getDayOfWeek().getValue() == 6 || LocalDate.now().getDayOfWeek().getValue() == 7) {
-                        userEntity.getCardEntity().setCardBalance((userEntity.getCardEntity().getCardBalance() - 20));
+                        long cardBalance = userEntity.getCardEntity().getCardBalance() - 20;
+                        if (0 > cardBalance) {
+                            return -1;
+                        } else {
+                            userEntity.getCardEntity().setCardBalance((userEntity.getCardEntity().getCardBalance() - 20));
+                        }
                     } else {
-                        userEntity.getCardEntity().setCardBalance((userEntity.getCardEntity().getCardBalance() - 10));
+                        long cardBalance = userEntity.getCardEntity().getCardBalance() - 10;
+                        if (0 > cardBalance) {
+                            return -1;
+                        } else {
+                            userEntity.getCardEntity().setCardBalance((userEntity.getCardEntity().getCardBalance() - 10));
+                        }
                     }
                     userRepository.save(userEntity);
                     game1Details.setUserEntity(userEntity);
                     game1Repository.save(game1Details);
+                    return 1;
                 }
 
             } else if (gameCount == 1 && gamesList.get(9) == 1 && gamesList.get(1) == 1) {
@@ -108,13 +121,24 @@ public class GameServiceImpl implements GameService {
                 if (result == 1) {
                     Game1Details game1Details = new Game1Details();
                     if (LocalDate.now().getDayOfWeek().getValue() == 6 || LocalDate.now().getDayOfWeek().getValue() == 7) {
-                        userEntity.getCardEntity().setCardBalance((userEntity.getCardEntity().getCardBalance() - 20));
+                        long cardBalance = userEntity.getCardEntity().getCardBalance() - 20;
+                        if (0 > cardBalance) {
+                            return -1;
+                        } else {
+                            userEntity.getCardEntity().setCardBalance((userEntity.getCardEntity().getCardBalance() - 20));
+                        }
                     } else {
-                        userEntity.getCardEntity().setCardBalance((userEntity.getCardEntity().getCardBalance() - 10));
+                        long cardBalance = userEntity.getCardEntity().getCardBalance() - 10;
+                        if (0 > cardBalance) {
+                            return -1;
+                        } else {
+                            userEntity.getCardEntity().setCardBalance((userEntity.getCardEntity().getCardBalance() - 10));
+                        }
                     }
                     userRepository.save(userEntity);
                     game1Details.setUserEntity(userEntity);
                     game1Repository.save(game1Details);
+                    return 1;
                 }
             }
 
@@ -123,9 +147,19 @@ public class GameServiceImpl implements GameService {
                     int result = checkValid(gamesList, gameCount, false);
                     if (result == 1) {
                         if (LocalDate.now().getDayOfWeek().getValue() == 6 || LocalDate.now().getDayOfWeek().getValue() == 7) {
-                            userEntity.getCardEntity().setCardBalance((userEntity.getCardEntity().getCardBalance() - 20));
+                            long cardBalance = userEntity.getCardEntity().getCardBalance() - 20;
+                            if (0 > cardBalance) {
+                                return -1;
+                            } else {
+                                userEntity.getCardEntity().setCardBalance((userEntity.getCardEntity().getCardBalance() - 20));
+                            }
                         } else {
-                            userEntity.getCardEntity().setCardBalance((userEntity.getCardEntity().getCardBalance() - 10));
+                            long cardBalance = userEntity.getCardEntity().getCardBalance() - 10;
+                            if (0 > cardBalance) {
+                                return -1;
+                            } else {
+                                userEntity.getCardEntity().setCardBalance((userEntity.getCardEntity().getCardBalance() - 10));
+                            }
                         }
                         userRepository.save(userEntity);
                         switch (gameCount) {
@@ -133,56 +167,130 @@ public class GameServiceImpl implements GameService {
                                 Game2Details game2Details = new Game2Details();
                                 game2Details.setUserEntity(userEntity);
                                 game2Repository.save(game2Details);
-                                break;
+                                return 1;
 
                             case 3:
                                 Game3Details game3Details = new Game3Details();
                                 game3Details.setUserEntity(userEntity);
                                 game3Repository.save(game3Details);
-                                break;
+                                return 1;
 
                             case 4:
                                 Game4Details game4Details = new Game4Details();
                                 game4Details.setUserEntity(userEntity);
                                 game4Repository.save(game4Details);
-                                break;
+                                return 1;
 
                             case 5:
                                 Game5Details game5Details = new Game5Details();
                                 game5Details.setUserEntity(userEntity);
                                 game5Repository.save(game5Details);
-                                break;
+                                return 1;
 
                             case 6:
                                 Game6Details game6Details = new Game6Details();
                                 game6Details.setUserEntity(userEntity);
                                 game6Repository.save(game6Details);
-                                break;
+                                return 1;
 
                             case 7:
                                 Game7Details game7Details = new Game7Details();
                                 game7Details.setUserEntity(userEntity);
                                 game7Repository.save(game7Details);
-                                break;
+                                return 1;
 
                             case 8:
                                 Game8Details game8Details = new Game8Details();
                                 game8Details.setUserEntity(userEntity);
                                 game8Repository.save(game8Details);
-                                break;
+                                return 1;
 
                             case 9:
                                 Game9Details game9Details = new Game9Details();
                                 game9Details.setUserEntity(userEntity);
                                 game9Repository.save(game9Details);
-                                break;
+                                return 1;
 
                             default:
                                 return 0;
                         }
+                    } else {
+                        return 0;
                     }
                 } else if (gamesList.get(9) == 1) {
                     int result = checkValid(gamesList, gameCount, true);
+                    if (result == 1) {
+                        if (LocalDate.now().getDayOfWeek().getValue() == 6 || LocalDate.now().getDayOfWeek().getValue() == 7) {
+                            long cardBalance = userEntity.getCardEntity().getCardBalance() - 20;
+                            if (0 > cardBalance) {
+                                return -1;
+                            } else {
+                                userEntity.getCardEntity().setCardBalance((userEntity.getCardEntity().getCardBalance() - 20));
+                            }
+                        } else {
+                            long cardBalance = userEntity.getCardEntity().getCardBalance() - 10;
+                            if (0 > cardBalance) {
+                                return -1;
+                            } else {
+                                userEntity.getCardEntity().setCardBalance((userEntity.getCardEntity().getCardBalance() - 10));
+                            }
+                        }
+                        userRepository.save(userEntity);
+                        switch (gameCount) {
+                            case 2:
+                                Game2Details game2Details = new Game2Details();
+                                game2Details.setUserEntity(userEntity);
+                                game2Repository.save(game2Details);
+                                return 1;
+
+                            case 3:
+                                Game3Details game3Details = new Game3Details();
+                                game3Details.setUserEntity(userEntity);
+                                game3Repository.save(game3Details);
+                                return 1;
+
+                            case 4:
+                                Game4Details game4Details = new Game4Details();
+                                game4Details.setUserEntity(userEntity);
+                                game4Repository.save(game4Details);
+                                return 1;
+
+                            case 5:
+                                Game5Details game5Details = new Game5Details();
+                                game5Details.setUserEntity(userEntity);
+                                game5Repository.save(game5Details);
+                                return 1;
+
+                            case 6:
+                                Game6Details game6Details = new Game6Details();
+                                game6Details.setUserEntity(userEntity);
+                                game6Repository.save(game6Details);
+                                return 1;
+
+                            case 7:
+                                Game7Details game7Details = new Game7Details();
+                                game7Details.setUserEntity(userEntity);
+                                game7Repository.save(game7Details);
+                                return 1;
+
+                            case 8:
+                                Game8Details game8Details = new Game8Details();
+                                game8Details.setUserEntity(userEntity);
+                                game8Repository.save(game8Details);
+                                return 1;
+
+                            case 9:
+                                Game9Details game9Details = new Game9Details();
+                                game9Details.setUserEntity(userEntity);
+                                game9Repository.save(game9Details);
+                                return 1;
+
+                            default:
+                                return 0;
+                        }
+                    } else {
+                        return 0;
+                    }
                 }
             }
         }
